@@ -1,10 +1,14 @@
-package com.victor.gym;
+package com.victor.gym.service.Implement;
 
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.victor.gym.model.Persona;
+import com.victor.gym.service.PersonaService;
+import com.victor.gym.util.PersonaRepositorio;
 
 @Service
 public class PersonaServiceImpl implements PersonaService{

@@ -1,4 +1,4 @@
-package com.victor.gym;
+package com.victor.gym.util;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

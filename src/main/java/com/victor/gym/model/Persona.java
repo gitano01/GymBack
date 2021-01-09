@@ -1,4 +1,4 @@
-package com.victor.gym;
+package com.victor.gym.model;
 
 import javax.persistence.*;
 
