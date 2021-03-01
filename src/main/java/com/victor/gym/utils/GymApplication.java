@@ -1,4 +1,4 @@
-package com.victor.gym;
+package com.victor.gym.utils;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,6 +8,7 @@ public class GymApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GymApplication.class, args);
+		System.setProperty("java.net.preferIPv4Stack" , "true");
 	}
 
 }
