@@ -9,7 +9,7 @@ public interface PersonaService {
 	Persona add(Persona p);
 	Persona edit(Persona p);
 	Persona delete(Long id);
-	Persona listarId(Long id);
+	Persona buscarPersona(Long id);
 	
 	
 

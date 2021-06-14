@@ -19,16 +19,40 @@ public class GymController {
 	PersonaService service;
 	
 	@GetMapping("/all")
-	public List<Persona>listar(){
+	public Object listar(){
 		
-		System.out.println("Aqui entre perro");
-		return service.listar();
+		ApiResponse goodResponse = new ApiResponse();
+		ApiFailedResponse badResponse = new ApiFailedResponse();
+		List<Persona> persona =  null;
+		try {
+			
+			persona = service.listar();
+			
+			if(persona != null) {
+			goodResponse.setCodigo(200);
+			goodResponse.setMensaje("Opercion exitosa");
+			goodResponse.setResponse(persona);
+			
+			return goodResponse;
+			}else {
+				badResponse.setCodigo(400);
+				badResponse.setMensaje("Recurso no encontrado");				
+				return badResponse;
+			}
+			
+		}catch(Exception e) {
+			
+			badResponse.setCodigo(500);
+			badResponse.setMensaje("Recurso no encontrado");
+			badResponse.setInfo(e.getMessage());
+			return badResponse;
+		}
 	}
+	
 	@GetMapping("/{id}")
 	public Persona listarId(@PathVariable("id")Long id) {
 		
 		
-		System.out.println("Vale cheto");
 		return service.listarId(id);
 	}
 	

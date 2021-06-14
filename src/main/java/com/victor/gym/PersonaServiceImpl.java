@@ -18,7 +18,7 @@ public class PersonaServiceImpl implements PersonaService{
     }
 
     @Override
-    public Persona listarId(Long id) {
+    public Persona buscarPersona(Long id) {
         return repositorio.findById(id) ;   }
 
     @Override
