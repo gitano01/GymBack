@@ -23,15 +23,15 @@ public class GymController {
 		
 		ApiResponse goodResponse = new ApiResponse();
 		ApiFailedResponse badResponse = new ApiFailedResponse();
-		List<Persona> persona =  null;
+		List<Persona> personas =  null;
 		try {
 			
-			persona = service.listar();
+			personas = service.listar();
 			
-			if(persona != null) {
+			if(personas != null) {
 			goodResponse.setCodigo(200);
 			goodResponse.setMensaje("Opercion exitosa");
-			goodResponse.setResponse(persona);
+			goodResponse.setResponse(personas);
 			
 			return goodResponse;
 			}else {
@@ -50,10 +50,40 @@ public class GymController {
 	}
 	
 	@GetMapping("/{id}")
-	public Persona listarId(@PathVariable("id")Long id) {
+	public Object buscarPersona(@PathVariable("id")Long id) {
+		
+		ApiResponse goodResponse = new ApiResponse();
+		ApiFailedResponse badResponse = new ApiFailedResponse();
+		Persona persona = null;
+		
+		try {
+			
+		persona = service.buscarPersona(id);
+			
+			if(persona != null) {
+				
+				goodResponse.setCodigo(200);
+				goodResponse.setMensaje("Opercion exitosa");
+				goodResponse.setResponse(persona);
+				
+				return goodResponse;
+				
+			}else {
+				
+				badResponse.setCodigo(400);
+				badResponse.setMensaje("Recurso no encontrado");				
+				return badResponse;
+			}
+		}catch(Exception e) {
+			
+			badResponse.setCodigo(500);
+			badResponse.setMensaje("Recurso no encontrado");
+			badResponse.setInfo(e.getMessage());
+			return badResponse;
+		}
 		
 		
-		return service.listarId(id);
+		
 	}
 	
 	
