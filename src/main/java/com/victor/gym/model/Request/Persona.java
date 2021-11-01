@@ -1,25 +1,17 @@
 package com.victor.gym.model.Request;
-import javax.persistence.*;
 
-@Entity
-@Table(name = "persona")
 public class Persona {
 
-    @Id
-    @Column
-    @GeneratedValue(strategy  =  GenerationType.IDENTITY)
-    private int id;
-    @Column
+	private int identificador;
     private String nombre;
-    @Column
     private String apellido;
-    @Column
     private String correo;
-	public int getId() {
-		return id;
+    
+	public int getIdentificador() {
+		return identificador;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setIdentificador(int identificador) {
+		this.identificador = identificador;
 	}
 	public String getNombre() {
 		return nombre;
