@@ -5,6 +5,6 @@ import com.victor.gym.model.Response.Response;
 
 public interface UsuarioServiceDao {
 
-	//public Response getUser(Usuario usuario);
+	public Response getUser(Usuario usuario);
 	
 }

@@ -1,15 +1,16 @@
 package com.victor.gym.model.Response;
 
-public class Response {
+public class ErrorResponse {
 
-	private int  codigo;
-	private String  mensaje;
-	private Object resultado;
+	private int codigo;
+	private String mensaje;
+	private String detalles;
 	
 	
-	public int  getCodigo() {
+	public int getCodigo() {
 		return codigo;
 	}
+	
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
@@ -19,12 +20,13 @@ public class Response {
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
-	public Object getResultado() {
-		return resultado;
+
+	public String getDetalles() {
+		return detalles;
 	}
-	public void setResultado(Object resultado) {
-		this.resultado = resultado;
+
+	public void setDetalles(String detalles) {
+		this.detalles = detalles;
 	}
-	
 	
 }

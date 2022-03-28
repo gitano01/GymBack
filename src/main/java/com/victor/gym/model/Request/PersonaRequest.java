@@ -1,18 +1,10 @@
 package com.victor.gym.model.Request;
 
-public class Persona {
+public class PersonaRequest {
 
-	private int id;
-    private String nombre;
+	private String nombre;
     private String apellido;
     private String correo;
-    private boolean activo; 
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -31,12 +23,5 @@ public class Persona {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public boolean isActivo() {
-		return activo;
-	}
-	public void setActivo(boolean activo) {
-		this.activo = activo;
-	}
-    
     
 }

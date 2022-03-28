@@ -14,6 +14,7 @@ public class JdbcConfig {
 	public  DataSource myPgSqlDataSource() {
 		
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		//dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setDriverClassName("org.postgresql.Driver");
 		dataSource.setUrl("jdbc:postgresql://localhost:5432/gym");
 		dataSource.setUsername("postgres");
