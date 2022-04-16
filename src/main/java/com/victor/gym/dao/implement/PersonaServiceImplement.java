@@ -2,6 +2,7 @@ package com.victor.gym.dao.implement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -17,8 +18,7 @@ import com.victor.gym.dao.service.PersonaServiceDao;
 import com.victor.gym.jdbcConfig.JdbcConfig;
 import com.victor.gym.model.Request.Persona;
 import com.victor.gym.model.Request.PersonaRequest;
-import com.victor.gym.model.Response.ErrorResponse;
-import com.victor.gym.model.Response.Response;
+
 
 
 
@@ -34,29 +34,29 @@ String sql = new String();
  
  JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
  
-//	 public List<Persona> listarPersonas(){
-//		 
-//		sql = "SELECT * FROM persona";
-//		
-//		List<Persona> lista = new ArrayList<>();
-//		 
-//		lista =  this.jdbcTemplate.query(sql, new RowMapper<Persona>() {
-//		        @Override
-//		        public Persona mapRow(ResultSet rs, int i) throws SQLException {
-//		            Persona p = new Persona();
-//		            p.setId(rs.getInt("identificador"));
-//		            p.setNombre(rs.getString("nombre"));
-//		            p.setApellido(rs.getString("apellido"));
-//		            p.setCorreo(rs.getString("correo"));
-//		            p.setActivo(rs.getBoolean("activo"));
-//		            return p;
-//		        }
-//		    });
-//		
-//		return lista;
-//		 
-//	 }
- 
+
+ 	public List<Persona> listarPersonas(){
+
+		sql = "SELECT * FROM persona";
+
+		List<Persona> lista = new ArrayList<>();
+
+		lista =  this.jdbcTemplate.query(sql, new RowMapper<Persona>() {
+		        @Override
+		        public Persona mapRow(ResultSet rs, int i) throws SQLException {
+		            Persona p = new Persona();
+		            p.setId(rs.getInt("identificador"));
+		            p.setNombre(rs.getString("nombre"));
+		            p.setApellido(rs.getString("apellido"));
+		            p.setCorreo(rs.getString("correo"));
+		            p.setActivo(rs.getBoolean("activo"));
+		            return p;
+		        }
+		    });
+
+		return lista;
+	 }
+
 	 public String insertarPersona(PersonaRequest p){
 		 
 		 SimpleJdbcCall call = new SimpleJdbcCall(dataSource).withFunctionName("insertarpersona");
@@ -69,9 +69,9 @@ String sql = new String();
 		
 		 
 	 }
-	 
-	 
-	 
+
+
+
 	 @SuppressWarnings("unchecked")
 	public Persona buscarPersona(int id) {
 		 
@@ -115,14 +115,14 @@ String sql = new String();
 		}
 		
 	 }  
- 
-	 
+
+
 	 public String updatePersona( int id,Persona p) {
-		 
+
 		 return "Shidori";
 	 }
-	
-	 
+
+
 	 public String activarDesactivarPersona(int id, boolean valor) {
 		 
 		 SimpleJdbcCall call = new SimpleJdbcCall(dataSource).withFunctionName("activarDesactivarPersona");
