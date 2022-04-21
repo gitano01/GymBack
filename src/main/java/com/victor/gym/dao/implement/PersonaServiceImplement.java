@@ -61,8 +61,8 @@ String sql = new String();
 		 
 		 SimpleJdbcCall call = new SimpleJdbcCall(dataSource).withFunctionName("insertarpersona");
 		  MapSqlParameterSource in = new MapSqlParameterSource();
-		  in.addValue("nombres", p.getNombre());
-		  in.addValue("apellidos", p.getApellido());
+		  in.addValue("nombre", p.getNombre());
+		  in.addValue("apellido", p.getApellido());
 		  in.addValue("email", p.getCorreo());
 		
 		 return call.executeFunction(String.class, in);

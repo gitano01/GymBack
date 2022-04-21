@@ -26,7 +26,7 @@ import com.victor.gym.utils.Validaciones;
 
 	//@CrossOrigin(origins =; "http://localhost:4200", maxAge = 3600)
 	@RestController
-	@RequestMapping({"/personas"})
+	@RequestMapping({"/gestion-personas"})
 	public class GymController {
 
 		@Autowired
@@ -61,7 +61,11 @@ import com.victor.gym.utils.Validaciones;
 
 
 			}catch(Exception e ) {
-				throw new Exception(e.getMessage());
+
+				error.setMensaje("Error Interno");
+				error.setCodigo(500);
+				error.setDetalles(e.getMessage());
+				return new  ResponseEntity<ErrorResponse>(error ,HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 
 
@@ -104,22 +108,70 @@ import com.victor.gym.utils.Validaciones;
 		  			
 		  		}
 			}catch(Exception e) {
-				
-				throw new Exception(e.getMessage());
+
+				error.setMensaje("Error Interno");
+				error.setCodigo(500);
+				error.setDetalles(e.getMessage());
+				return new  ResponseEntity<ErrorResponse>(error ,HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		  	
 		}
 
-		@PostMapping("/insertarPersona")
-		public String insertarPersona(@RequestBody PersonaRequest p) {
-			
-			return personaService.insertarPersona(p);
+		@PostMapping("/persona")
+		public ResponseEntity insertarPersona(@RequestBody PersonaRequest p) throws Exception {
+
+			try {
+
+				String  insertado = personaService.insertarPersona(p);
+
+					if(insertado != null){
+						response.setMensaje("Operación exitosa");
+						response.setCodigo(200);
+						response.setResultado(insertado);
+					return new ResponseEntity<Response>(response, HttpStatus.OK);
+					}else{
+
+						error.setMensaje("Error en la operacion");
+						error.setCodigo(200);
+						error.setDetalles("Error al insertar la informacion revise su información");
+						return new ResponseEntity<ErrorResponse>(error, HttpStatus.BAD_REQUEST);
+					}
+
+			}catch (Exception e){
+
+				error.setMensaje("Error Interno");
+				error.setCodigo(500);
+				error.setDetalles(e.getMessage());
+				return new  ResponseEntity<ErrorResponse>(error ,HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+
 		}
 		
 		@PostMapping("/{id}/activarDesactivarPersona/{valor}")
-		public String activarPersona(@PathVariable("id") String id,@PathVariable("valor") String valor) {
-			
-			return personaService.activarDesactivarPersona(Integer.valueOf(id), Boolean.valueOf(valor));
+		public ResponseEntity activarPersona(@PathVariable("id") String id,@PathVariable("valor") String valor) throws Exception{
+			try {
+				String activar = personaService.activarDesactivarPersona(Integer.valueOf(id), Boolean.valueOf(valor));
+
+				if(activar != null){
+					response.setMensaje("Operación exitosa");
+					response.setCodigo(200);
+					response.setResultado(activar);
+					return new ResponseEntity<Response>(response, HttpStatus.OK);
+				}else{
+
+					error.setMensaje("Error en la operacion");
+					error.setCodigo(200);
+					error.setDetalles("Error al activar el cliente");
+					return new ResponseEntity<ErrorResponse>(error, HttpStatus.BAD_REQUEST);
+				}
+
+			}catch (Exception e){
+
+				error.setMensaje("Error Interno");
+				error.setCodigo(500);
+				error.setDetalles(e.getMessage());
+				return new  ResponseEntity<ErrorResponse>(error ,HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 		}
 		
 		
