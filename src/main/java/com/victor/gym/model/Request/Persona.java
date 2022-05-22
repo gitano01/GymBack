@@ -2,16 +2,16 @@ package com.victor.gym.model.Request;
 
 public class Persona {
 
-	private int id;
+	private int identificador;
     private String nombre;
     private String apellido;
     private String correo;
     private boolean activo; 
-	public int getId() {
-		return id;
+	public int getIdentificador() {
+		return identificador;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setIdentificador(int id) {
+		this.identificador = id;
 	}
 	public String getNombre() {
 		return nombre;

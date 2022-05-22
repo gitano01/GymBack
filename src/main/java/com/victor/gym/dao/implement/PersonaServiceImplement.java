@@ -3,12 +3,15 @@ package com.victor.gym.dao.implement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -29,11 +32,12 @@ public class PersonaServiceImplement implements PersonaServiceDao{
 JdbcConfig jdbcConfig = new JdbcConfig();
 
 
-DataSource dataSource = jdbcConfig.myPgSqlDataSource();
+DataSource dataSourceConf = jdbcConfig.myPgSqlDataSource();
 String sql = new String();
  
- JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+ JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSourceConf);
  
+ SimpleJdbcCall call;
 
  	public List<Persona> listarPersonas(){
 
@@ -45,7 +49,7 @@ String sql = new String();
 		        @Override
 		        public Persona mapRow(ResultSet rs, int i) throws SQLException {
 		            Persona p = new Persona();
-		            p.setId(rs.getInt("identificador"));
+		            p.setIdentificador(rs.getInt("identificador"));
 		            p.setNombre(rs.getString("nombre"));
 		            p.setApellido(rs.getString("apellido"));
 		            p.setCorreo(rs.getString("correo"));
@@ -59,7 +63,7 @@ String sql = new String();
 
 	 public String insertarPersona(PersonaRequest p){
 		 
-		 SimpleJdbcCall call = new SimpleJdbcCall(dataSource).withFunctionName("insertarpersona");
+		  call = new SimpleJdbcCall(dataSourceConf).withFunctionName("insertarpersona");
 		  MapSqlParameterSource in = new MapSqlParameterSource();
 		  in.addValue("nombre", p.getNombre());
 		  in.addValue("apellido", p.getApellido());
@@ -81,7 +85,7 @@ String sql = new String();
 		        @Override
 		        public Persona mapRow(ResultSet rs, int i) throws SQLException {
 		            Persona p = new Persona();
-		            p.setId(rs.getInt("identificador"));
+		            p.setIdentificador(rs.getInt("identificador"));
 		            p.setNombre(rs.getString("nombre"));
 		            p.setApellido(rs.getString("apellido"));
 		            p.setCorreo(rs.getString("correo"));
@@ -104,7 +108,7 @@ String sql = new String();
 		
 		for(Persona elem: list) {
 			
-			persona.setId(elem.getId());
+			persona.setIdentificador(elem.getIdentificador());
 			persona.setNombre(elem.getNombre());
 			persona.setApellido(elem.getApellido());
 			persona.setCorreo(elem.getCorreo());
@@ -116,6 +120,32 @@ String sql = new String();
 		
 	 }  
 
+	 
+	 @SuppressWarnings("unchecked")
+		public Persona getPersona(int id) {
+		 
+		 call = new SimpleJdbcCall(dataSourceConf).withFunctionName("buscarpersona");
+		 MapSqlParameterSource in = new MapSqlParameterSource();
+		 in.addValue("ide", id);
+		 Map<String, Object> out = call.execute(in);
+		 
+		 Persona p = new Persona();
+		 
+		 p.setActivo((boolean) out.get("activo"));
+		 p.setIdentificador((int)out.get("identificador"));
+		 p.setNombre((String)out.get("nombre"));
+		 p.setApellido((String)out.get("apellido"));
+		 p.setCorreo((String)out.get("correo"));
+		 
+		 
+		 return p;		
+			
+		 }  
+	 
+	  
+	 
+
+	 
 
 	 public String updatePersona( int id,Persona p) {
 
@@ -125,7 +155,7 @@ String sql = new String();
 
 	 public String activarDesactivarPersona(int id, boolean valor) {
 		 
-		 SimpleJdbcCall call = new SimpleJdbcCall(dataSource).withFunctionName("activarDesactivarPersona");
+		 SimpleJdbcCall call = new SimpleJdbcCall(dataSourceConf).withFunctionName("activarDesactivarPersona");
 		 
 		 MapSqlParameterSource in = new MapSqlParameterSource();
 		 in.addValue("in_id",id);
@@ -133,7 +163,9 @@ String sql = new String();
 		  		
 		 return call.executeFunction(String.class, in);
 	 }
-		
+	
+	 
+	 
 		
 		
 		
